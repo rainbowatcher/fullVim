@@ -29,7 +29,7 @@ local options = {
   -- configurations
   timeoutlen = 300, -- time to wait for a mapped sequence to complete (in milliseconds)
   updatetime = 100, -- faster completion
-  cmdheight = 1, -- more space in the neovim command line for displaying messages
+  -- cmdheight = 1, -- more space in the neovim command line for displaying messages
   completeopt = { "menuone", "noselect", "noinsert" },
 }
 
@@ -64,6 +64,7 @@ M.load_headless_options = function()
 end
 
 M.setup = function()
+  -- is there no neovim instance is running
   if #vim.api.nvim_list_uis() == 0 then
     M.load_headless_options()
     return

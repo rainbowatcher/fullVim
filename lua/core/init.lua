@@ -16,9 +16,14 @@ local options = require("core.options")
 options.setup()
 require("lazy").setup("plugins")
 
+-- ================== neovide ==================
+-- if exists("g:neovide")
+--     " Put anything you want to happen only in Neovide here
+-- endif
 -- ================== load modules ==================
-require("core.mappings")
 require("onedark").load()
 vim.cmd("colorscheme onedark")
+require("core.mappings")
+require("core.autocmd")
 
 

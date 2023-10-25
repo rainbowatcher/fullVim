@@ -1,27 +1,44 @@
--- vim.keymap.set("n", "<leader>cr", "source ~/.config/nvim/init.lua")
-vim.keymap.set("n", ";", ":")
-
-local wk = require("which-key")
-wk.register({
-  f = {
-    name = "File", -- optional group name
-    -- f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
-    -- r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap=false, buffer = 123 }, -- additional options for creating the keymap
-    -- n = { "New File" }, -- just a label. don't create any mapping
-    -- e = "Edit File", -- same as above
-    ["1"] = "which_key_ignore",  -- special label to hide it in the popup
-    b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
+local keymaps = {
+  n = {
+    { ";",        ":" },
+    { "<M-Up>",   "ddkP" },
+    { "<M-Down>", "ddp" },
+    { "<M-j>",    "ddp" },
+    { "<M-k>",    "ddkP" },
+    { "<M-z>",    ":set wrap! <CR>" },
+    { "<D-e>",    ":NvimTreeToggle <CR>",                                    { silent = true } },
+    { "<D-z>",    "u" },
+    { "<Esc>",    ":noh <CR>",                                               { silent = true } }, -- disable highlighting
+    -- Better window movement
+    { "<c-h>",    "<c-w>h" },
+    { "<c-j>",    "<c-w>j" },
+    { "<c-k>",    "<c-w>k" },
+    { "<c-l>",    "<c-w>l" },
+    -- nvterm
+    -- stylua: ignore
+    { "<c-`",     function() require("nvterm.terminal").new "horizontal" end },
+    { "<S-h>",    "<cmd>BufferLineCyclePrev<cr>",                            { desc = "Prev buffer" } },
+    { "<S-l>",    "<cmd>BufferLineCycleNext<cr>",                            { desc = "Next buffer" } },
   },
-  e = {
-    name = "Edit",
-    u = { "u", "Undo" },
-    r = { "<C-r>", "Redo" },
-  },
-  s = {
-    name = "Selection",
+  i = {
+    { "jj", "<Esc>" }
   },
   v = {
-    name = "View",
+    -- { "<A-Up", ":m'>+<cr>`<my`>mzgv`yo`z" },
+    -- { "<A-Down", ":m'<-2<cr>`>my`<mzgv`yo`z" },
   },
-  q = { ":q! <cr>", "Quit" }
-}, { prefix = "<leader>" })
+}
+
+for mode, maps in pairs(keymaps) do
+  for _, value in ipairs(maps) do
+    -- mode, key command { silent: boolean, buffer: int | boolean }
+    pcall(vim.api.nvim_del_keymap, mode, value[1])
+    vim.keymap.set(mode, value[1], value[2], value[3])
+  end
+end
+
+vim.keymap.set({ "n", "i", "s" }, "<c-f>", function()
+  if not require("noice.lsp").scroll(4) then
+    return "<c-f>"
+  end
+end)
