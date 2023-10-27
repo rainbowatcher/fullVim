@@ -54,6 +54,7 @@ return {
         -- stylua: ignore
         b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
       },
+      L = { ":Lazy <CR>", "Lazy" },
       n = {
         name = "Notifications",
         h = { ":Noice history <CR>", "Show notification history" }

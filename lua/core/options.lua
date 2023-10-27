@@ -1,4 +1,5 @@
 local M = {}
+-- this module is first order load at vim startup.
 
 local options = {
   -- display
@@ -35,6 +36,7 @@ local options = {
 
 local globalOptions = {
   mapleader = " ", -- map the leader key to space
+  -- It is strongly advised to eagerly disable netrw, due to race conditions at vim startup. -- nvim-tree
   loaded_netrw = 1, -- disable the netrw
   loaded_netrwPlugin = 1, -- disable the netrw
 }

@@ -10,22 +10,27 @@ local keymaps = {
     { "<D-z>",    "u" },
     { "<Esc>",    ":noh <CR>",                                               { silent = true } }, -- disable highlighting
     -- Better window movement
-    { "<c-h>",    "<c-w>h" },
-    { "<c-j>",    "<c-w>j" },
-    { "<c-k>",    "<c-w>k" },
-    { "<c-l>",    "<c-w>l" },
+    { "<C-h>",    "<c-w>h" },
+    { "<C-j>",    "<c-w>j" },
+    { "<C-k>",    "<c-w>k" },
+    { "<C-l>",    "<c-w>l" },
     -- nvterm
     -- stylua: ignore
-    { "<c-`",     function() require("nvterm.terminal").new "horizontal" end },
+    { "<C-`",     function() require("nvterm.terminal").new "horizontal" end },
     { "<S-h>",    "<cmd>BufferLineCyclePrev<cr>",                            { desc = "Prev buffer" } },
     { "<S-l>",    "<cmd>BufferLineCycleNext<cr>",                            { desc = "Next buffer" } },
+    { "<D-s>",    ":w <CR>",                                            { silent = true } },
   },
   i = {
-    { "jj", "<Esc>" }
+    { "jj",     "<Esc>" },
+    { "<D-v>",  "<esc>pa",      { silent = true } },
+    { "<D-z>",  "<esc>ua",      { silent = true } },
+    { "<M-BS>", "<esc>bdwi",    { silent = true } },
+    { "<D-s>",  "<esc>:w <CR>", { silent = true } },
   },
   v = {
-    -- { "<A-Up", ":m'>+<cr>`<my`>mzgv`yo`z" },
-    -- { "<A-Down", ":m'<-2<cr>`>my`<mzgv`yo`z" },
+    { "D-c",   "y" },
+    { "<D-s>", "<esc>:w <CR>", { silent = true } },
   },
 }
 
